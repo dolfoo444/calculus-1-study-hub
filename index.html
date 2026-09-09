@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculus 1 Study Hub</title>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    svg: { fontCache: 'global' },
+    options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+  };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" async></script>
+<style>
+  :root{
+    --bg:#f4f6fb; --surface:#ffffff; --surface-2:#eef2fb;
+    --ink:#111827; --ink-soft:#3d4657; --muted:#6b7280;
+    --line:#e2e8f4; --line-strong:#cbd5ea;
+    --brand:#2f4bd8; --brand-soft:#e8ecff; --brand-ink:#1f2f9c;
+    --accent:#0d9488; --accent-soft:#d5f5ef;
+    --warn:#b45309; --warn-soft:#fdf0d9;
+    --danger:#be123c; --danger-soft:#ffe4ec;
+    --gold:#a16207; --gold-soft:#fdf3d3;
+    --radius:14px; --shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06);
+    --maxw:1080px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0e131f; --surface:#161d2e; --surface-2:#1d2740;
+      --ink:#f1f5fb; --ink-soft:#c7d0e0; --muted:#93a0b8;
+      --line:#28324a; --line-strong:#3a4767;
+      --brand:#8aa0ff; --brand-soft:#20294a; --brand-ink:#c3cfff;
+      --accent:#4dd6c4; --accent-soft:#15302c;
+      --warn:#f4bd6a; --warn-soft:#332512;
+      --danger:#ff8fab; --danger-soft:#361420;
+      --gold:#e9c46a; --gold-soft:#302713;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:var(--brand)}
+  h1,h2,h3,h4{line-height:1.25;color:var(--ink)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+  /* ---------- Header ---------- */
+  header.site{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--surface) 88%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .head-inner{max-width:var(--maxw);margin:0 auto;padding:14px 20px;display:flex;flex-wrap:wrap;
+    align-items:center;gap:14px 22px;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand .mark{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--brand),#6d7bff);
+    display:grid;place-items:center;color:#fff;font-weight:800;font-size:20px;box-shadow:var(--shadow)}
+  .brand h1{font-size:1.12rem;margin:0;letter-spacing:-.02em}
+  .brand p{margin:0;font-size:.76rem;color:var(--muted);font-weight:500}
+  .tabs{display:flex;gap:6px;background:var(--surface-2);padding:5px;border-radius:12px;border:1px solid var(--line)}
+  .tabs button{border:0;background:transparent;color:var(--ink-soft);font:inherit;font-weight:650;
+    padding:9px 16px;border-radius:9px;cursor:pointer;font-size:.9rem;transition:.15s;white-space:nowrap}
+  .tabs button:hover{color:var(--ink)}
+  .tabs button.active{background:var(--surface);color:var(--brand-ink);box-shadow:var(--shadow)}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:34px 0 10px}
+  .hero .eyebrow{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--brand-ink);background:var(--brand-soft);padding:5px 11px;border-radius:20px;margin-bottom:14px}
+  .hero h2{font-size:1.85rem;margin:.1em 0 .3em;letter-spacing:-.02em}
+  .hero p.lead{font-size:1.02rem;color:var(--ink-soft);max-width:70ch;margin:0}
+  .exam-facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+  .fact{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:10px 15px;box-shadow:var(--shadow)}
+  .fact b{display:block;font-size:1.05rem;color:var(--brand-ink)}
+  .fact span{font-size:.78rem;color:var(--muted)}
+
+  /* ---------- Section sub-nav ---------- */
+  .subnav{position:sticky;top:70px;z-index:40;display:flex;gap:8px;flex-wrap:wrap;padding:12px 0;margin-top:14px;
+    background:linear-gradient(var(--bg),var(--bg) 70%,transparent)}
+  .subnav a{font-size:.83rem;font-weight:600;color:var(--ink-soft);text-decoration:none;
+    padding:7px 13px;border-radius:20px;border:1px solid var(--line);background:var(--surface);transition:.15s}
+  .subnav a:hover{border-color:var(--brand);color:var(--brand-ink)}
+
+  /* ---------- Blocks ---------- */
+  section.block{margin:30px 0 10px}
+  .sec-head{display:flex;align-items:center;gap:12px;margin:0 0 6px}
+  .sec-head .ico{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-size:18px;flex:none}
+  .sec-head h3{margin:0;font-size:1.32rem;letter-spacing:-.01em}
+  .sec-sub{color:var(--muted);font-size:.9rem;margin:0 0 18px 46px}
+  .ico.blue{background:var(--brand-soft)}.ico.teal{background:var(--accent-soft)}
+  .ico.gold{background:var(--gold-soft)}.ico.rose{background:var(--danger-soft)}.ico.amber{background:var(--warn-soft)}
+
+  /* ---------- Accordion ---------- */
+  .acc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:12px;
+    overflow:hidden;box-shadow:var(--shadow)}
+  .acc>summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;gap:12px;
+    font-weight:670;font-size:1rem;user-select:none}
+  .acc>summary::-webkit-details-marker{display:none}
+  .acc>summary:hover{background:var(--surface-2)}
+  .acc>summary .chev{margin-left:auto;transition:transform .2s;color:var(--muted);flex:none}
+  .acc[open]>summary .chev{transform:rotate(90deg)}
+  .acc>summary .tag{font-size:.68rem;font-weight:700;padding:3px 8px;border-radius:6px;letter-spacing:.03em;text-transform:uppercase}
+  .tag.wk{background:var(--brand-soft);color:var(--brand-ink)}
+  .tag.new{background:var(--accent-soft);color:var(--accent)}
+  .acc .body{padding:4px 20px 20px;border-top:1px solid var(--line)}
+  .acc .body>*:first-child{margin-top:14px}
+
+  /* ---------- Content pieces ---------- */
+  .intuition,.formal,.example,.trap,.callout{border-radius:11px;padding:13px 16px;margin:12px 0}
+  .intuition{background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent)}
+  .formal{background:var(--surface-2);border:1px solid var(--line)}
+  .example{background:var(--brand-soft);border:1px solid color-mix(in srgb,var(--brand) 24%,transparent)}
+  .trap{background:var(--danger-soft);border:1px solid color-mix(in srgb,var(--danger) 28%,transparent)}
+  .callout{background:var(--gold-soft);border:1px solid color-mix(in srgb,var(--gold) 30%,transparent)}
+  .lbl{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:750;letter-spacing:.05em;
+    text-transform:uppercase;margin-bottom:6px}
+  .intuition .lbl{color:var(--accent)}.formal .lbl{color:var(--muted)}
+  .example .lbl{color:var(--brand-ink)}.trap .lbl{color:var(--danger)}.callout .lbl{color:var(--gold)}
+  .intuition p,.formal p,.example p,.trap p,.callout p{margin:.35em 0}
+  .step{margin:.4em 0 .4em 2px;padding-left:14px;border-left:2px solid var(--line-strong)}
+
+  /* ---------- Exam-topic priority cards ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+  .pcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:var(--shadow);
+    border-top:4px solid var(--line)}
+  .pcard.p-vhigh{border-top-color:var(--danger)}
+  .pcard.p-high{border-top-color:var(--warn)}
+  .pcard.p-med{border-top-color:var(--brand)}
+  .pcard h4{margin:0 0 4px;font-size:1rem}
+  .pcard .pr{font-size:.7rem;font-weight:750;letter-spacing:.05em;text-transform:uppercase}
+  .p-vhigh .pr{color:var(--danger)}.p-high .pr{color:var(--warn)}.p-med .pr{color:var(--brand-ink)}
+  .pcard p{margin:.5em 0 0;font-size:.88rem;color:var(--ink-soft)}
+  .pcard .seen{margin-top:9px;font-size:.75rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+
+  /* ---------- Practice ---------- */
+  .prob{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
+  .prob .q{padding:15px 18px 5px}
+  .prob .q .meta{font-size:.72rem;font-weight:700;color:var(--brand-ink);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+  .sol{border:0;margin:8px 18px 16px;border-radius:10px;background:var(--surface-2);overflow:hidden}
+  .sol>summary{list-style:none;cursor:pointer;padding:10px 14px;font-weight:650;font-size:.88rem;color:var(--accent);
+    display:flex;align-items:center;gap:8px}
+  .sol>summary::-webkit-details-marker{display:none}
+  .sol>summary::before{content:"▸";transition:transform .2s}
+  .sol[open]>summary::before{transform:rotate(90deg)}
+  .sol .sbody{padding:2px 16px 16px;border-top:1px solid var(--line);font-size:.94rem}
+  .sol .sbody>*:first-child{margin-top:12px}
+
+  /* ---------- Cheat sheet ---------- */
+  .cheat{columns:2;column-gap:16px}
+  @media(max-width:760px){.cheat{columns:1}}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0 0 16px;
+    break-inside:avoid;box-shadow:var(--shadow)}
+  .card h4{margin:0 0 8px;font-size:.98rem;display:flex;align-items:center;gap:8px}
+  .card h4 .d{width:9px;height:9px;border-radius:50%;background:var(--brand)}
+  .card ul{margin:0;padding-left:2px;list-style:none}
+  .card li{padding:5px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+  .card li:last-child{border-bottom:0}
+  .kmath{overflow-x:auto}
+
+  .divider{height:1px;background:var(--line);margin:26px 0}
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:26px 0;color:var(--muted);font-size:.82rem}
+  .pill{display:inline-block;font-size:.72rem;font-weight:600;background:var(--surface-2);border:1px solid var(--line);
+    border-radius:6px;padding:2px 8px;margin:2px 3px 2px 0;color:var(--ink-soft)}
+  .hub{display:none}.hub.active{display:block}
+  mjx-container{overflow-x:auto;overflow-y:hidden;max-width:100%}
+  @media(max-width:640px){
+    .hero h2{font-size:1.5rem}.subnav{top:64px}
+    .brand p{display:none}
+  }
+  .toggle{border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);border-radius:9px;
+    padding:8px 12px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}
+  .note-top{font-size:.8rem;color:var(--muted);margin:6px 0 0 46px}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="head-inner">
+    <div class="brand">
+      <div class="mark">∫</div>
+      <div>
+        <h1>Calculus 1 — Study Hub</h1>
+        <p>Mathematics 1 · Concepts · Worked examples · Exam-targeted practice</p>
+      </div>
+    </div>
+    <div class="tabs" role="tablist">
+      <button id="tab-mid" class="active" onclick="showHub('mid')">📘 Midterm Hub</button>
+      <button id="tab-fin" onclick="showHub('fin')">📗 Final Exam Hub</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================ MIDTERM HUB -->
+<main class="wrap">
+<div id="hub-mid" class="hub active">
+
+  <section class="hero">
+    <span class="eyebrow">Weeks 1 – 3 · Chapters 1, 2, 3 + Sequences</span>
+    <h2>Midterm Preparation</h2>
+    <p class="lead">Everything from functions and inequalities through limits, continuity, and the full toolkit of differentiation. Work through the concepts, test yourself on practice modeled directly on past midterms, then lock in the cheat sheet.</p>
+    <div class="exam-facts">
+      <div class="fact"><b>2 hours</b><span>120 minutes</span></div>
+      <div class="fact"><b>30%</b><span>of course grade</span></div>
+      <div class="fact"><b>Ch 1, 2, 3</b><span>+ §11.1–11.2, App. A, D, E</span></div>
+      <div class="fact"><b>Block + Open</b><span>Section A + Section B</span></div>
+    </div>
+  </section>
+
+  <nav class="subnav">
+    <a href="#m-concepts">① Concepts</a>
+    <a href="#m-highprob">② High-Probability Topics</a>
+    <a href="#m-practice">③ Practice</a>
+    <a href="#m-cheat">④ Cheat Sheet</a>
+  </nav>
+
+  <!-- ===== MIDTERM CONCEPTS ===== -->
+  <section class="block" id="m-concepts">
+    <div class="sec-head"><div class="ico blue">🧠</div><h3>Step-by-Step Concepts</h3></div>
+    <p class="sec-sub">Plain-English intuition first, then the formal definition, then a worked example. Click any topic to expand.</p>
+
+    <!-- 1 -->
+    <details class="acc">
+      <summary><span class="tag wk">Wk 1 · App A</span> Numbers, Inequalities &amp; Absolute Value <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>Solving an inequality is like solving an equation, with one rule to respect: <b>multiplying or dividing by a negative flips the direction</b> of the sign. Absolute value $|x|$ just measures distance from $0$, so $|x|<a$ means "within $a$ of zero," i.e. $-a<x<a$.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p>$|x| = x$ if $x\ge 0$ and $|x| = -x$ if $x<0$. Key facts: $|x|<a \iff -a<x<a$; $\;|x|>a \iff x<-a$ or $x>a$; $\;\sqrt{x^2}=|x|$.</p>
+          <p>For quadratic/rational inequalities, move everything to one side, factor, and use a <b>sign chart</b> across the roots and points where the expression is undefined.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Solve $|x-1| > \sqrt{1-x^2}$.</p>
+          <p class="step">Domain: need $1-x^2\ge0 \Rightarrow x\in[-1,1]$. Both sides $\ge0$, so square: $(x-1)^2 > 1-x^2$.</p>
+          <p class="step">$1-2x+x^2 > 1-x^2 \Rightarrow 2x^2-2x>0 \Rightarrow 2x(x-1)>0$.</p>
+          <p class="step">Sign chart on $[-1,1]$: $2x(x-1)>0$ for $x<0$. Combined with the domain: $\boxed{x\in[-1,0)}$.</p></div>
+        <div class="trap"><div class="lbl">⚠️ Common trap</div><p>Never forget the domain restriction from a square root, and remember $\sqrt{x^2}=|x|$, not $x$ — this is the #1 source of sign errors in limits at $-\infty$.</p></div>
+      </div>
+    </details>
+
+    <!-- 2 -->
+    <details class="acc">
+      <summary><span class="tag wk">Wk 1 · §1.1–1.2</span> Functions, Domain &amp; Essential Functions <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>A function is a rule that gives exactly one output per input. The <b>domain</b> is every $x$ you're allowed to feed in. Two rules block inputs: you can't divide by zero, and you can't take a square root (even root) of a negative.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p>Essential families: <b>polynomial</b> (domain $\mathbb{R}$), <b>rational</b> $p(x)/q(x)$ (exclude zeros of $q$), <b>power</b> $x^{a}$, <b>root</b> $\sqrt[n]{x}$ (need argument $\ge0$ for even $n$), <b>absolute value</b>.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Domain of $g(x)=x^2-\sqrt{x^4+2x^2-3}$.</p>
+          <p class="step">Need $x^4+2x^2-3\ge0$. Let $u=x^2$: $u^2+2u-3=(u+3)(u-1)\ge0$.</p>
+          <p class="step">Since $u+3=x^2+3>0$ always, we need $u-1\ge0$, i.e. $x^2\ge1 \Rightarrow |x|\ge1$.</p>
+          <p class="step">Domain $=(-\infty,-1]\cup[1,\infty)$.</p></div>
+      </div>
+    </details>
+
+    <!-- 3 -->
+    <details class="acc">
+      <summary><span class="tag wk">Wk 1 · §1.3–1.5</span> Composition, Injective/Surjective &amp; Inverses <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p><b>Composition</b> $f\circ g$ means "do $g$ first, then $f$." An <b>inverse</b> undoes a function — it only exists if the function is one-to-one (never hits the same output twice, the <em>horizontal line test</em>).</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p><b>Injective</b> (one-to-one): $f(a)=f(b)\Rightarrow a=b$. <b>Surjective</b> (onto): range = codomain. <b>Bijective</b>: both. To find $f^{-1}$: set $y=f(x)$ and solve for $x$ in terms of $y$.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Find the inverse of $f(x)=\ln\!\big(x+\sqrt{x^2+1}\big)$.</p>
+          <p class="step">$y=\ln(x+\sqrt{x^2+1}) \Rightarrow e^{y}=x+\sqrt{x^2+1}$.</p>
+          <p class="step">$e^{y}-x=\sqrt{x^2+1}$; square: $e^{2y}-2xe^{y}+x^2=x^2+1$.</p>
+          <p class="step">$e^{2y}-1=2xe^{y} \Rightarrow x=\dfrac{e^{2y}-1}{2e^{y}}$. So $f^{-1}(x)=\dfrac{e^{2x}-1}{2e^{x}}$.</p></div>
+        <div class="callout"><div class="lbl">🔑 Key formula</div><p>Derivative of an inverse at a point: $\big(f^{-1}\big)'(b)=\dfrac{1}{f'(a)}$ where $b=f(a)$.</p></div>
+      </div>
+    </details>
+
+    <!-- 4 -->
+    <details class="acc">
+      <summary><span class="tag wk">Wk 1 · App D</span> Exponential, Log, Trig &amp; Trig Identities <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>Exponentials grow/shrink by a fixed factor; logs are their inverses (they ask "what power?"). Trig functions read coordinates off the unit circle. The identities are your shortcuts for simplifying before differentiating or integrating.</p></div>
+        <div class="formal"><div class="lbl">📐 Must-know identities</div>
+          <p>$\sin^2\theta+\cos^2\theta=1$; $\;\tan\theta=\frac{\sin\theta}{\cos\theta}$.</p>
+          <p>Double angle: $\sin 2\theta=2\sin\theta\cos\theta$, $\;\cos 2\theta=\cos^2\theta-\sin^2\theta=2\cos^2\theta-1=1-2\sin^2\theta$.</p>
+          <p>Log laws: $\ln(ab)=\ln a+\ln b$, $\;\ln(a/b)=\ln a-\ln b$, $\;\ln(a^r)=r\ln a$, $\;e^{\ln x}=x$.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Solve $\left(\tfrac1e\right)^{x^2-4x}\ge 1$.</p>
+          <p class="step">$\left(e^{-1}\right)^{x^2-4x}\ge e^{0}\iff e^{-(x^2-4x)}\ge e^0$. Base $e>1$, so exponents keep order: $-(x^2-4x)\ge0$.</p>
+          <p class="step">$-x(x-4)\ge0 \Rightarrow x(x-4)\le0 \Rightarrow 0\le x\le4$. Solution $[0,4]$.</p></div>
+      </div>
+    </details>
+
+    <!-- 5 -->
+    <details class="acc">
+      <summary><span class="tag wk">Wk 2 · §11.1–11.2</span> Sequences: Convergence, Monotone &amp; Squeeze <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>A sequence is a list $a_1,a_2,a_3,\dots$. It <b>converges</b> if the terms home in on a single number as $n\to\infty$. Two power tools: if a sequence keeps heading one direction and can't pass a wall, it must settle (Monotone); if it's trapped between two sequences going to the same limit, it goes there too (Squeeze).</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p><b>Arithmetic:</b> $a_n=a_1+(n-1)d$. <b>Geometric:</b> $a_n=a_1 r^{n-1}$, converges iff $|r|<1$.</p>
+          <p><b>Monotonic Sequence Theorem:</b> every bounded, monotonic sequence converges.</p>
+          <p><b>Squeeze Theorem:</b> if $b_n\le a_n\le c_n$ and $\lim b_n=\lim c_n=L$, then $\lim a_n=L$.</p>
+          <p><b>Sup / Inf:</b> the least upper bound / greatest lower bound of the set of terms.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Show $a_n=\sqrt{n^2+1}-n$ is decreasing and bounded; find $\sup$ and $\inf$.</p>
+          <p class="step">Rationalize: $a_n=\dfrac{(\sqrt{n^2+1}-n)(\sqrt{n^2+1}+n)}{\sqrt{n^2+1}+n}=\dfrac{1}{\sqrt{n^2+1}+n}$.</p>
+          <p class="step">As $n$ grows, the denominator grows, so $a_n$ decreases. Also $a_n>0$. So it's bounded and monotone $\Rightarrow$ convergent.</p>
+          <p class="step">$\sup=a_1=\sqrt2-1$; $\lim a_n=0 \Rightarrow \inf=0$.</p></div>
+      </div>
+    </details>
+
+    <!-- 6 -->
+    <details class="acc">
+      <summary><span class="tag wk">Wk 2 · App E</span> Sigma Notation &amp; Mathematical Induction <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>Induction is a chain of dominoes: show the first one falls (base case), and show that <em>any</em> domino falling knocks over the next (inductive step). Then all of them fall.</p></div>
+        <div class="formal"><div class="lbl">📐 The three steps</div>
+          <p><b>1. Base:</b> verify the statement $S_1$ for $n=1$.</p>
+          <p><b>2. Assume:</b> suppose $S_k$ is true for some $k$ (the induction hypothesis).</p>
+          <p><b>3. Prove:</b> using the hypothesis, derive $S_{k+1}$.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Prove $\displaystyle\sum_{i=1}^{n} i^2=\tfrac{1}{6}n(n+1)(2n+1)$.</p>
+          <p class="step"><b>Base $n=1$:</b> LHS $=1$; RHS $=\tfrac16(1)(2)(3)=1$. ✓</p>
+          <p class="step"><b>Step:</b> assume it holds for $k$. Then $\sum_{i=1}^{k+1}i^2=\tfrac16 k(k+1)(2k+1)+(k+1)^2$.</p>
+          <p class="step">Factor $(k+1)$: $=\tfrac{k+1}{6}\big[k(2k+1)+6(k+1)\big]=\tfrac{k+1}{6}(2k^2+7k+6)=\tfrac16(k+1)(k+2)(2k+3)$. ✓</p></div>
+      </div>
+    </details>
+
+    <!-- 7 -->
+    <details class="acc">
+      <summary><span class="tag wk">Wk 2 · §2.1–2.4</span> Limits of Functions &amp; the ε–δ Definition <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>$\lim_{x\to a}f(x)=L$ means "as $x$ gets close to $a$, $f(x)$ gets close to $L$" — <em>regardless of the value at $a$ itself</em>. The $\varepsilon$–$\delta$ definition just makes "close" precise: for any target tightness $\varepsilon$ around $L$, you can find an input window $\delta$ around $a$ that keeps you inside it.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p><b>Limit laws:</b> limits distribute over sums, products, quotients (denominator $\ne0$).</p>
+          <p><b>ε–δ:</b> $\lim_{x\to a}f(x)=L$ iff $\forall\varepsilon>0\;\exists\delta>0$ such that $0<|x-a|<\delta \Rightarrow |f(x)-L|<\varepsilon$.</p>
+          <p><b>Strategy:</b> factor $|f(x)-L|$ to reveal a factor of $|x-a|$, bound the rest, then choose $\delta$.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Prove $\lim_{x\to2}\sqrt{x}=\sqrt2$ by ε–δ.</p>
+          <p class="step">Multiply by conjugate: $|\sqrt x-\sqrt2|=\dfrac{|x-2|}{\sqrt x+\sqrt2}\le\dfrac{|x-2|}{\sqrt2}$.</p>
+          <p class="step">Choose $\delta=\sqrt2\,\varepsilon$. Then $0<|x-2|<\delta \Rightarrow |\sqrt x-\sqrt2|<\dfrac{\sqrt2\,\varepsilon}{\sqrt2}=\varepsilon.$ ∎</p></div>
+      </div>
+    </details>
+
+    <!-- 8 -->
+    <details class="acc">
+      <summary><span class="tag wk">Wk 2 · §2.6</span> Limits at Infinity &amp; Asymptotes <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>To find where a fraction goes as $x\to\pm\infty$, divide top and bottom by the <b>highest power of $x$</b> — or the dominant term. Watch the sign of $x$ under square roots: for $x\to-\infty$, $\sqrt{x^2}=|x|=-x$.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p><b>Horizontal asymptote</b> $y=L$ if $\lim_{x\to\pm\infty}f(x)=L$. <b>Vertical asymptote</b> $x=a$ if $\lim_{x\to a^{\pm}}f(x)=\pm\infty$ (numerator nonzero, denominator $\to0$).</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Evaluate $\lim_{x\to-\infty}\dfrac{2x}{\sqrt{x^2+1}}$.</p>
+          <p class="step">Divide by $x$. Since $x<0$, $x=-\sqrt{x^2}$: $\dfrac{2x}{\sqrt{x^2+1}}=\dfrac{2}{-\sqrt{1+1/x^2}}$.</p>
+          <p class="step">As $x\to-\infty$: $\to\dfrac{2}{-1}=-2$.</p></div>
+        <div class="trap"><div class="lbl">⚠️ Common trap</div><p>Forgetting the negative when pulling $x$ out of a root at $-\infty$ gives $+2$ instead of $-2$. Always track the sign.</p></div>
+      </div>
+    </details>
+
+    <!-- 9 -->
+    <details class="acc">
+      <summary><span class="tag wk">Wk 3 · §2.5</span> Continuity &amp; the Intermediate Value Theorem <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>A function is continuous at $a$ if you can draw through $x=a$ without lifting your pen: the limit exists and equals the value. The <b>IVT</b> says a continuous function can't skip values — if it's below a target at one end and above at the other, it must hit it somewhere between.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p><b>Continuous at $a$:</b> $\lim_{x\to a}f(x)=f(a)$ (needs all three: $f(a)$ defined, limit exists, they match).</p>
+          <p><b>IVT:</b> if $f$ is continuous on $[a,b]$ and $N$ is between $f(a)$ and $f(b)$, then $\exists c\in(a,b)$ with $f(c)=N$.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Show $\arccos(x)=x^2+x$ has a solution in $(-1,1)$.</p>
+          <p class="step">Let $f(x)=x^2+x-\arccos x$, continuous on $[-1,1]$.</p>
+          <p class="step">$f(-1)=1-1-\arccos(-1)=-\pi<0$; $\;f(1)=1+1-0=2>0$.</p>
+          <p class="step">By IVT, $\exists c\in(-1,1)$ with $f(c)=0$, i.e. $\arccos c=c^2+c$. ∎</p></div>
+      </div>
+    </details>
+
+    <!-- 10 -->
+    <details class="acc">
+      <summary><span class="tag wk">Wk 3 · §2.7–2.8</span> The Derivative: Definition &amp; Differentiability <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>The derivative is the instantaneous rate of change — the slope of the tangent line. It's the limit of average slopes as the two points merge. Differentiable $\Rightarrow$ continuous, but <em>not</em> the reverse ($|x|$ is continuous yet has a corner at $0$).</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p>$f'(a)=\displaystyle\lim_{h\to0}\dfrac{f(a+h)-f(a)}{h}=\lim_{x\to a}\dfrac{f(x)-f(a)}{x-a}$.</p>
+          <p>Tangent line at $a$: $y=f(a)+f'(a)(x-a)$.</p>
+          <p>Differentiable at a point needs the left and right difference-quotient limits to exist <em>and match</em>.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>For $g(x)=2+x^3\cos(1/x)$ (with $g(0)=2$), find $g'(0)$.</p>
+          <p class="step">$g'(0)=\lim_{x\to0}\dfrac{2+x^3\cos(1/x)-2}{x}=\lim_{x\to0}x^2\cos(1/x)$.</p>
+          <p class="step">Since $-1\le\cos(1/x)\le1$: $-x^2\le x^2\cos(1/x)\le x^2$. Both bounds $\to0$, so by Squeeze $g'(0)=0$.</p></div>
+      </div>
+    </details>
+
+    <!-- 11 -->
+    <details class="acc">
+      <summary><span class="tag wk">Wk 3 · §3.1–3.2</span> Differentiation Rules: Power, Product, Quotient <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>These are the mechanical rules that let you differentiate anything built from the essential functions without going back to the limit definition.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p>Power: $\frac{d}{dx}x^n=nx^{n-1}$. Constant multiple &amp; sum: linear.</p>
+          <p>Product: $(uv)'=u'v+uv'$. Quotient: $\left(\dfrac{u}{v}\right)'=\dfrac{u'v-uv'}{v^2}$.</p>
+          <p>Essentials: $(e^x)'=e^x$, $(\ln x)'=\tfrac1x$.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Where does $h(x)=2\arctan x+\ln(x^2+1)$ have a horizontal tangent?</p>
+          <p class="step">$h'(x)=\dfrac{2}{1+x^2}+\dfrac{2x}{x^2+1}=\dfrac{2+2x}{1+x^2}$.</p>
+          <p class="step">$h'=0\iff 2+2x=0\iff x=-1$. Point: $\big(-1,\,\ln 2\big)$.</p></div>
+      </div>
+    </details>
+
+    <!-- 12 -->
+    <details class="acc">
+      <summary><span class="tag wk">Wk 3 · §3.3–3.6</span> Chain Rule, Implicit &amp; Trig/Log Derivatives <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>The <b>chain rule</b> handles "a function inside a function": differentiate the outside, keep the inside, times the derivative of the inside. <b>Implicit differentiation</b> lets you find $y'$ when $y$ is tangled up with $x$ — just differentiate both sides and treat $y$ as a function of $x$. <b>Logarithmic differentiation</b> tames $x^{g(x)}$ towers by taking $\ln$ first.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p>Chain: $\frac{d}{dx}f(g(x))=f'(g(x))\,g'(x)$.</p>
+          <p>$(\sin x)'=\cos x,\;(\cos x)'=-\sin x,\;(\tan x)'=\sec^2x$.</p>
+          <p>$(\arcsin x)'=\frac{1}{\sqrt{1-x^2}},\;(\arctan x)'=\frac{1}{1+x^2}$.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Tangent line to $y=x^{\sin x}$ at $x=\tfrac{\pi}{2}$.</p>
+          <p class="step">$\ln y=\sin x\,\ln x \Rightarrow \dfrac{y'}{y}=\cos x\,\ln x+\dfrac{\sin x}{x}$.</p>
+          <p class="step">At $x=\tfrac\pi2$: $y=(\tfrac\pi2)^1=\tfrac\pi2$; $\;y'=\tfrac\pi2\big[0+\tfrac{1}{\pi/2}\big]=1$.</p>
+          <p class="step">Tangent: $y-\tfrac\pi2=1\cdot(x-\tfrac\pi2)\Rightarrow y=x$.</p></div>
+      </div>
+    </details>
+
+    <!-- 13 -->
+    <details class="acc">
+      <summary><span class="tag wk">Wk 3 · §3.10</span> Linear &amp; Quadratic Approximation (Differentials) <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>Near a point, a curve looks almost like its tangent line — so the tangent gives a quick estimate of nearby values. Adding a curvature term (the second derivative) makes it a better, parabolic fit.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p>Linear: $L(x)=f(a)+f'(a)(x-a)$. Differential: $dy=f'(x)\,dx$.</p>
+          <p>Quadratic / degree-2 Taylor: $P_2(x)=f(a)+f'(a)(x-a)+\tfrac{f''(a)}{2}(x-a)^2$.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Approximate $\sqrt{4.1}$ using $f(x)=\sqrt x$ at $a=4$.</p>
+          <p class="step">$f'(x)=\tfrac{1}{2\sqrt x}\Rightarrow f'(4)=\tfrac14$. $L(x)=2+\tfrac14(x-4)$.</p>
+          <p class="step">$\sqrt{4.1}\approx 2+\tfrac14(0.1)=2.025$ (actual $\approx2.0248$).</p></div>
+      </div>
+    </details>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== MIDTERM HIGH-PROB ===== -->
+  <section class="block" id="m-highprob">
+    <div class="sec-head"><div class="ico rose">🎯</div><h3>High-Probability Exam Topics</h3></div>
+    <p class="sec-sub">Distilled from the 2023, 2024 &amp; 2025 midterms — these appear <b>almost every year</b>. Prioritize top-to-bottom.</p>
+    <div class="grid">
+      <div class="pcard p-vhigh"><span class="pr">🔴 Almost certain</span><h4>ε–N proof for a sequence limit</h4>
+        <p>Prove $\lim a_n=L$ from the definition. Rationalize / bound, then define $N_\varepsilon$.</p>
+        <div class="seen">Seen: 2024 Q4 · 2025 Q9b · pattern every year</div></div>
+      <div class="pcard p-vhigh"><span class="pr">🔴 Almost certain</span><h4>Induction proof (a sum formula)</h4>
+        <p>$\sum i^2$, or a composed-function formula $f_n=f_0\circ f_{n-1}$. Base → assume → step.</p>
+        <div class="seen">Seen: 2024 Q8 · 2025 Q8</div></div>
+      <div class="pcard p-vhigh"><span class="pr">🔴 Almost certain</span><h4>IVT existence argument</h4>
+        <p>Define $f$, show continuous, check signs at endpoints, conclude a root exists.</p>
+        <div class="seen">Seen: 2024 Q11 · 2025 Q11</div></div>
+      <div class="pcard p-vhigh"><span class="pr">🔴 Almost certain</span><h4>Implicit diff → tangent line</h4>
+        <p>Differentiate an implicit equation, plug in the point, build $y=mx+b$.</p>
+        <div class="seen">Seen: 2024 Q12 · 2025 Q12 (log diff)</div></div>
+      <div class="pcard p-high"><span class="pr">🟠 Very likely</span><h4>Limits (incl. Squeeze &amp; at $\pm\infty$)</h4>
+        <p>One with $\sqrt{x^2}=|x|$ sign issue; one using Squeeze with $\sin/\cos$.</p>
+        <div class="seen">Seen: 2024 Q2 · 2025 Q3</div></div>
+      <div class="pcard p-high"><span class="pr">🟠 Very likely</span><h4>Domain / range / asymptote</h4>
+        <p>Domain of a root-over-rational; vertical asymptote; range of $\frac{ae^x}{1+be^x}$.</p>
+        <div class="seen">Seen: 2024 Q3,Q6 · 2025 Q4</div></div>
+      <div class="pcard p-high"><span class="pr">🟠 Very likely</span><h4>Sequence: monotone + bounded</h4>
+        <p>Show decreasing/increasing, bounded, give $\sup$/$\inf$, cite Monotone Thm.</p>
+        <div class="seen">Seen: 2024 Q9 · 2025 Q9a</div></div>
+      <div class="pcard p-high"><span class="pr">🟠 Very likely</span><h4>Inverse-function derivative</h4>
+        <p>$(f^{-1})'(b)=1/f'(a)$; or find an explicit inverse formula.</p>
+        <div class="seen">Seen: 2024 Q5,Q7 · 2025 Q7</div></div>
+      <div class="pcard p-med"><span class="pr">🔵 Likely</span><h4>Continuity of a piecewise function</h4>
+        <p>Match one-sided limits to the value at the join point.</p>
+        <div class="seen">Seen: 2024 Q10</div></div>
+      <div class="pcard p-med"><span class="pr">🔵 Likely</span><h4>Solve an inequality (exp / abs / rational)</h4>
+        <p>Block question. Sign chart; base-$e$ monotonicity; $|x|$ cases.</p>
+        <div class="seen">Seen: 2024 Q1 · 2025 Q2,Q6</div></div>
+      <div class="pcard p-med"><span class="pr">🔵 Likely</span><h4>True/False conceptual (block)</h4>
+        <p>e.g. "continuous ⟹ differentiable?" Give a counterexample ($|x|$).</p>
+        <div class="seen">Seen: 2025 Q1</div></div>
+      <div class="pcard p-med"><span class="pr">🔵 Likely</span><h4>Derivative from the definition</h4>
+        <p>Difference quotient + Squeeze for a function with $\cos(1/x)$.</p>
+        <div class="seen">Seen: 2025 Q10</div></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== MIDTERM PRACTICE ===== -->
+  <section class="block" id="m-practice">
+    <div class="sec-head"><div class="ico teal">✏️</div><h3>Targeted Practice</h3></div>
+    <p class="sec-sub">Modeled directly on midterm patterns. <b>Try each one first</b>, then expand the step-by-step solution.</p>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem M1 · ε–N proof</div>
+        <p>Prove, using the $\varepsilon$–$N$ definition, that $\displaystyle\lim_{n\to\infty}\frac{3+5n^2}{n+n^2}=5.$</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step">Let $\varepsilon>0$ be arbitrary. Compute $\left|\dfrac{3+5n^2}{n+n^2}-5\right|=\left|\dfrac{3+5n^2-5n-5n^2}{n+n^2}\right|=\dfrac{|3-5n|}{n+n^2}=\dfrac{5n-3}{n(n+1)}$ (for $n\ge1$).</p>
+        <p class="step">Bound: $\dfrac{5n-3}{n(n+1)}<\dfrac{5n}{n\cdot n}=\dfrac{5}{n}$.</p>
+        <p class="step">Define $N_\varepsilon=\left\lceil\dfrac{5}{\varepsilon}\right\rceil$. Then for all $n>N_\varepsilon$: $\dfrac5n<\dfrac{5}{5/\varepsilon}=\varepsilon.$ Hence the limit is $5$. ∎</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem M2 · Induction</div>
+        <p>Let $f_0(x)=\dfrac{x}{x+1}$ and $f_n=f_0\circ f_{n-1}$. Prove that $f_n(x)=\dfrac{x}{(n+1)x+1}$ for all $n\in\mathbb{N}$.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step"><b>Base $n=1$:</b> $f_1=f_0(f_0(x))=\dfrac{\frac{x}{x+1}}{\frac{x}{x+1}+1}=\dfrac{x}{x+(x+1)}=\dfrac{x}{2x+1}$, which matches $\frac{x}{(1+1)x+1}$. ✓</p>
+        <p class="step"><b>Assume</b> $f_k(x)=\dfrac{x}{(k+1)x+1}$.</p>
+        <p class="step"><b>Step:</b> $f_{k+1}=f_0(f_k)=\dfrac{\frac{x}{(k+1)x+1}}{\frac{x}{(k+1)x+1}+1}=\dfrac{x}{x+(k+1)x+1}=\dfrac{x}{(k+2)x+1}$. ✓ ∎</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem M3 · IVT</div>
+        <p>Prove that $\cos(\arcsin x)=x^2+x$ has a solution in $(0,1)$.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step">Let $f(x)=\cos(\arcsin x)-x^2-x$, continuous on $[0,1]$ (composition/difference of continuous functions).</p>
+        <p class="step">$f(0)=\cos(0)-0-0=1>0$.</p>
+        <p class="step">$f(1)=\cos(\arcsin 1)-1-1=\cos(\tfrac\pi2)-2=-2<0$.</p>
+        <p class="step">Take $N=0$: by IVT there is $c\in(0,1)$ with $f(c)=0$. ∎</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem M4 · Two limits</div>
+        <p>(a) $\displaystyle\lim_{x\to\infty}\frac{2x-\sin x}{\cos x+3x^2}$ &nbsp;&nbsp; (b) $\displaystyle\lim_{x\to1^-}\arccos\!\left(\frac{1-\sqrt x}{1-x}\right)$.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step"><b>(a)</b> Divide by $x^2$: $\dfrac{\frac2x-\frac{\sin x}{x^2}}{\frac{\cos x}{x^2}+3}$. By Squeeze, $\frac{\sin x}{x^2},\frac{\cos x}{x^2}\to0$. Limit $=\dfrac{0-0}{0+3}=0$.</p>
+        <p class="step"><b>(b)</b> $\dfrac{1-\sqrt x}{1-x}=\dfrac{1-\sqrt x}{(1-\sqrt x)(1+\sqrt x)}=\dfrac{1}{1+\sqrt x}\to\dfrac12$. So the limit is $\arccos(\tfrac12)=\dfrac{\pi}{3}$.</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem M5 · Domain of a log expression</div>
+        <p>Find the domain of $f(x)=\ln\!\left(\dfrac{1+x^2}{1-x}\right)$ where additionally $f(x)\ge 0$.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step">Need $\dfrac{1+x^2}{1-x}>0$. Since $1+x^2>0$ always, need $1-x>0\Rightarrow x<1$.</p>
+        <p class="step">$f(x)\ge0\iff \dfrac{1+x^2}{1-x}\ge1\iff \dfrac{1+x^2-(1-x)}{1-x}\ge0\iff\dfrac{x(x+1)}{1-x}\ge0$.</p>
+        <p class="step">Sign chart (roots $-1,0$; undefined at $1$): solution $x\le-1$ or $0\le x<1$, i.e. $(-\infty,-1]\cup[0,1)$.</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem M6 · Inverse-derivative</div>
+        <p>Suppose $f(4)=5$, $f'(4)=\tfrac23$, $f'(5)=-1$. Find $\big(f^{-1}\big)'(5)$.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step">$\big(f^{-1}\big)'(5)=\dfrac{1}{f'(f^{-1}(5))}=\dfrac{1}{f'(4)}$ since $f(4)=5$.</p>
+        <p class="step">$=\dfrac{1}{2/3}=\dfrac32$. (The value $f'(5)$ is a distractor.)</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem M7 · Monotone &amp; bounded sequence</div>
+        <p>For $a_n=\dfrac{n+\sqrt n}{n+1}$: show it is bounded, and prove $\lim a_n=1$ by ε–N.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step"><b>Bounded below by 1:</b> $\dfrac{n+\sqrt n}{n+1}\ge\dfrac{n+\sqrt n}{n+\sqrt n}=1$ (since $\sqrt n\ge1\Rightarrow n+1\le n+\sqrt n$… check: for $n\ge1$, $\sqrt n\ge1$ so $n+\sqrt n\ge n+1$). Bounded above by $2$: $\sqrt n\le n\Rightarrow \frac{n+\sqrt n}{n+1}\le\frac{2n}{n+1}\le2$.</p>
+        <p class="step"><b>ε–N:</b> $|a_n-1|=\left|\dfrac{n+\sqrt n-(n+1)}{n+1}\right|=\dfrac{|\sqrt n-1|}{n+1}<\dfrac{\sqrt n}{n+1}<\dfrac{1}{\sqrt n+1}$ (using $\frac{\sqrt n -1}{n+1}=\frac{1}{\sqrt n +1}$).</p>
+        <p class="step">Define $N_\varepsilon=\lceil\varepsilon^{-2}\rceil$; then $n>N_\varepsilon\Rightarrow \dfrac{1}{\sqrt n+1}<\dfrac{1}{\sqrt n}<\varepsilon$. ∎</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem M8 · Continuity of a piecewise function</div>
+        <p>Is $f$ continuous at $0$, where $f(x)=\dfrac{|x-1|-|2x+1|}{x}$ for $x\ne0$ and $f(0)=-3$?</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step">Near $0$: $x-1<0$ so $|x-1|=-(x-1)$; $2x+1>0$ so $|2x+1|=2x+1$.</p>
+        <p class="step">$f(x)=\dfrac{-(x-1)-(2x+1)}{x}=\dfrac{-3x}{x}=-3$ for $x\ne0$ near $0$.</p>
+        <p class="step">$\lim_{x\to0}f(x)=-3=f(0)$, so $f$ is continuous at $0$. ✓</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem M9 · Implicit differentiation + tangent</div>
+        <p>Find the tangent line to $\ln y-\sqrt{1-x^2}=\arcsin x+xy$ at the point $(0,e)$.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step">Differentiate: $\dfrac{y'}{y}-\dfrac{-2x}{2\sqrt{1-x^2}}=\dfrac{1}{\sqrt{1-x^2}}+y+xy'$.</p>
+        <p class="step">$y'\!\left(\dfrac1y-x\right)=\dfrac{1}{\sqrt{1-x^2}}-\dfrac{x}{\sqrt{1-x^2}}+y$.</p>
+        <p class="step">At $(0,e)$: $y'\cdot\dfrac1e=1+e\Rightarrow y'=e+e^2$. Tangent: $y=(e+e^2)x+e$.</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem M10 · Range of a function</div>
+        <p>Find the range of $g(x)=\dfrac{6e^x}{1+2e^x}$.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step">Divide by $e^x$: $g(x)=\dfrac{6}{e^{-x}+2}$, continuous, and increasing (since $e^{-x}$ decreases).</p>
+        <p class="step">As $x\to-\infty$, $e^{-x}\to\infty$, $g\to0$. As $x\to\infty$, $e^{-x}\to0$, $g\to3$.</p>
+        <p class="step">Range $=(0,3)$.</p>
+      </div></details>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== MIDTERM CHEAT SHEET ===== -->
+  <section class="block" id="m-cheat">
+    <div class="sec-head"><div class="ico gold">📌</div><h3>"Must-Remember" Cheat Sheet</h3></div>
+    <p class="sec-sub">Quick reference for the midterm. Skim this the night before.</p>
+    <div class="cheat">
+      <div class="card"><h4><span class="d"></span>Differentiation rules</h4><ul>
+        <li class="kmath">$(x^n)'=nx^{n-1}$</li>
+        <li class="kmath">$(uv)'=u'v+uv'$</li>
+        <li class="kmath">$\left(\frac uv\right)'=\frac{u'v-uv'}{v^2}$</li>
+        <li class="kmath">Chain: $[f(g)]'=f'(g)\,g'$</li>
+        <li class="kmath">$(e^x)'=e^x,\;(a^x)'=a^x\ln a$</li>
+        <li class="kmath">$(\ln x)'=\frac1x$</li>
+      </ul></div>
+      <div class="card"><h4><span class="d"></span>Trig &amp; inverse-trig derivatives</h4><ul>
+        <li class="kmath">$(\sin x)'=\cos x$</li>
+        <li class="kmath">$(\cos x)'=-\sin x$</li>
+        <li class="kmath">$(\tan x)'=\sec^2 x$</li>
+        <li class="kmath">$(\arcsin x)'=\frac{1}{\sqrt{1-x^2}}$</li>
+        <li class="kmath">$(\arccos x)'=-\frac{1}{\sqrt{1-x^2}}$</li>
+        <li class="kmath">$(\arctan x)'=\frac{1}{1+x^2}$</li>
+      </ul></div>
+      <div class="card"><h4><span class="d"></span>Key limits</h4><ul>
+        <li class="kmath">$\lim_{x\to0}\frac{\sin x}{x}=1$</li>
+        <li class="kmath">$\lim_{x\to0}\frac{1-\cos x}{x}=0$</li>
+        <li class="kmath">$\lim_{x\to\infty}\left(1+\frac1x\right)^x=e$</li>
+        <li class="kmath">At $\pm\infty$: divide by highest power</li>
+        <li class="kmath">$x\to-\infty:\ \sqrt{x^2}=-x$</li>
+      </ul></div>
+      <div class="card"><h4><span class="d"></span>Theorems to cite by name</h4><ul>
+        <li><b>Squeeze:</b> trapped between equal limits</li>
+        <li><b>Monotonic Sequence Thm:</b> bounded + monotone ⟹ converges</li>
+        <li><b>IVT:</b> continuous ⟹ hits every intermediate value</li>
+        <li><b>Diff ⟹ continuous</b> (not conversely)</li>
+      </ul></div>
+      <div class="card"><h4><span class="d"></span>Sequences &amp; sums</h4><ul>
+        <li class="kmath">Arithmetic: $a_n=a_1+(n-1)d$</li>
+        <li class="kmath">Geometric: $a_n=a_1r^{n-1}$, conv. iff $|r|<1$</li>
+        <li class="kmath">$\sum_{i=1}^n i=\frac{n(n+1)}2$</li>
+        <li class="kmath">$\sum_{i=1}^n i^2=\frac{n(n+1)(2n+1)}6$</li>
+      </ul></div>
+      <div class="card"><h4><span class="d"></span>Absolute value &amp; inequalities</h4><ul>
+        <li class="kmath">$|x|<a\iff -a<x<a$</li>
+        <li class="kmath">$|x|>a\iff x<-a\text{ or }x>a$</li>
+        <li>Flip sign when $\times/\div$ by a negative</li>
+        <li>Rational ineq. ⟹ one side = 0, sign chart</li>
+      </ul></div>
+      <div class="card"><h4><span class="d"></span>Trig identities</h4><ul>
+        <li class="kmath">$\sin^2\theta+\cos^2\theta=1$</li>
+        <li class="kmath">$\sin2\theta=2\sin\theta\cos\theta$</li>
+        <li class="kmath">$\cos2\theta=2\cos^2\theta-1$</li>
+        <li class="kmath">$\sin\frac\pi6=\frac12,\ \cos\frac\pi6=\frac{\sqrt3}2$</li>
+      </ul></div>
+      <div class="card"><h4><span class="d"></span>ε–δ / ε–N recipe</h4><ul>
+        <li>Start "Let $\varepsilon>0$ be arbitrary."</li>
+        <li>Factor $|f-L|$ to expose $|x-a|$ (or $\frac1n$)</li>
+        <li>Bound the leftover factor</li>
+        <li>Choose $\delta$ (or $N_\varepsilon$) to finish $<\varepsilon$</li>
+      </ul></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================ FINAL HUB -->
+<div id="hub-fin" class="hub">
+
+  <section class="hero">
+    <span class="eyebrow">Comprehensive · Chapters 1–7 + Sequences</span>
+    <h2>Final Exam Preparation</h2>
+    <p class="lead">Everything from the midterm <em>plus</em> the second half: applications of derivatives, l'Hôpital, curve sketching, and the whole integration toolkit through the Fundamental Theorem, substitution, parts, partial fractions, and improper integrals.</p>
+    <div class="exam-facts">
+      <div class="fact"><b>3 hours</b><span>180 minutes</span></div>
+      <div class="fact"><b>70%</b><span>of course grade</span></div>
+      <div class="fact"><b>Ch 1–7</b><span>+ §11.1–11.2, App. A, D, E</span></div>
+      <div class="fact"><b>≥ 5.5</b><span>required to pass</span></div>
+    </div>
+    <p class="note-top" style="margin-left:0">The final is cumulative — the midterm material is <b>fair game and often reused</b>. Everything in the Midterm Hub still applies; the topics below are what's <em>added</em>.</p>
+  </section>
+
+  <nav class="subnav">
+    <a href="#f-concepts">① New Concepts</a>
+    <a href="#f-highprob">② High-Probability Topics</a>
+    <a href="#f-practice">③ Practice</a>
+    <a href="#f-cheat">④ Master Cheat Sheet</a>
+  </nav>
+
+  <!-- ===== FINAL CONCEPTS ===== -->
+  <section class="block" id="f-concepts">
+    <div class="sec-head"><div class="ico blue">🧠</div><h3>Step-by-Step Concepts (Post-Midterm)</h3></div>
+    <p class="sec-sub">The applications-of-derivatives and integration topics. (For Ch 1–3, revisit the Midterm Hub.)</p>
+
+    <!-- F1 -->
+    <details class="acc">
+      <summary><span class="tag new">Wk 4 · §4.1</span> Max/Min, Extreme Value Theorem &amp; Closed-Interval Method <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>On a closed interval, a continuous function is guaranteed a highest and lowest point (EVT). Those extremes can only happen at "flat or sharp" spots (critical points) or at the two endpoints — so just check all candidates.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p><b>EVT:</b> $f$ continuous on $[a,b]$ ⟹ attains an absolute max and min.</p>
+          <p><b>Fermat:</b> a local extremum at interior $c$ ⟹ $f'(c)=0$ or $f'(c)$ DNE. <b>Critical point:</b> such a $c$.</p>
+          <p><b>Closed-Interval Method:</b> evaluate $f$ at all critical points <em>and</em> both endpoints; biggest = max, smallest = min.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Absolute extrema of $g(x)=x^{2/3}(2x-5)$ on $[-1,3]$.</p>
+          <p class="step">$g'(x)=\tfrac23x^{-1/3}(2x-5)+2x^{2/3}=\dfrac{10(x-1)}{3x^{1/3}}$. Critical: $x=1$ ($g'=0$) and $x=0$ ($g'$ DNE).</p>
+          <p class="step">Evaluate: $g(-1)=-7,\;g(0)=0,\;g(1)=-3,\;g(3)=\sqrt[3]9$.</p>
+          <p class="step">Absolute max $=\sqrt[3]9$ at $x=3$; absolute min $=-7$ at $x=-1$.</p></div>
+      </div>
+    </details>
+
+    <!-- F2 -->
+    <details class="acc">
+      <summary><span class="tag new">Wk 4 · §4.2</span> Mean Value Theorem &amp; Rolle's Theorem <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>Over any trip, at some instant your speed equals your average speed — that's the MVT. Rolle is the flat special case: if you start and end at the same height, somewhere your slope is zero. A classic use: prove a function has <em>exactly</em> one root (IVT gives "at least one," Rolle rules out two).</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p><b>MVT:</b> $f$ continuous on $[a,b]$, differentiable on $(a,b)$ ⟹ $\exists c$ with $f'(c)=\dfrac{f(b)-f(a)}{b-a}$.</p>
+          <p><b>Rolle:</b> if additionally $f(a)=f(b)$, then $\exists c$ with $f'(c)=0$.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Show $h(x)=2x-\cos x$ has exactly one root.</p>
+          <p class="step"><b>At least one:</b> $h(0)=-1<0$, $h(\tfrac\pi2)=\pi>0$, continuous ⟹ IVT gives a root.</p>
+          <p class="step"><b>At most one:</b> if two roots $a<b$, Rolle gives $c$ with $h'(c)=0$. But $h'(x)=2+\sin x>0$ always — contradiction. So exactly one. ∎</p></div>
+      </div>
+    </details>
+
+    <!-- F3 -->
+    <details class="acc">
+      <summary><span class="tag new">Wk 4–5 · §4.3</span> Shape of a Graph: Monotonicity, Concavity, Tests <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>The first derivative's sign tells you uphill (increasing) vs downhill (decreasing). The second derivative's sign tells you the bowl direction: concave up (smiley) or concave down (frowny). Where concavity flips is an inflection point.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p><b>Increasing/decreasing test:</b> $f'>0$ ⟹ increasing; $f'<0$ ⟹ decreasing.</p>
+          <p><b>First-derivative test:</b> $f'$ changes $+\to-$ at $c$ ⟹ local max; $-\to+$ ⟹ local min.</p>
+          <p><b>Concavity:</b> $f''>0$ ⟹ concave up; $f''<0$ ⟹ concave down. <b>Inflection:</b> concavity changes.</p>
+          <p><b>Second-derivative test:</b> $f'(c)=0$, $f''(c)>0$ ⟹ local min; $f''(c)<0$ ⟹ local max.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Intervals of increase/decrease for $g(x)=x^{2/3}(2x-5)$ (from above).</p>
+          <p class="step">$g'(x)=\dfrac{10(x-1)}{3x^{1/3}}$. Sign chart with breakpoints $0,1$:</p>
+          <p class="step">$(-\infty,0)$: $+$ (increasing); $(0,1)$: $-$ (decreasing); $(1,\infty)$: $+$ (increasing).</p></div>
+      </div>
+    </details>
+
+    <!-- F4 -->
+    <details class="acc">
+      <summary><span class="tag new">Wk 5 · §4.4</span> L'Hôpital's Rule &amp; Indeterminate Forms <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>When a limit gives $\frac00$ or $\frac\infty\infty$, the answer depends on <em>how fast</em> top and bottom race to their limits — compare their <b>derivatives</b>. Other forms ($0\cdot\infty$, $\infty-\infty$, $1^\infty$, $0^0$, $\infty^0$) must first be rewritten into a quotient (often via $\ln$).</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p>If $\frac fg\to\frac00$ or $\frac{\pm\infty}{\pm\infty}$, then $\lim\frac fg=\lim\frac{f'}{g'}$ (when the latter exists).</p>
+          <p>For $1^\infty,0^0,\infty^0$: set $y=$ expression, take $\ln$, find $\lim\ln y$, then exponentiate.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>$\displaystyle\lim_{x\to\infty}\left(1+\frac{1}{2x}\right)^x$.</p>
+          <p class="step">Let $y=(1+\tfrac1{2x})^x$, $\ln y=x\ln(1+\tfrac1{2x})=\dfrac{\ln(1+\frac1{2x})}{1/x}$ — form $\tfrac00$.</p>
+          <p class="step">L'Hôpital: $\dfrac{\frac{1}{1+1/(2x)}\cdot(-\frac{1}{2x^2})}{-1/x^2}=\dfrac{1}{1+1/(2x)}\cdot\dfrac12\to\dfrac12$.</p>
+          <p class="step">So $\lim y=e^{1/2}=\sqrt e$.</p></div>
+      </div>
+    </details>
+
+    <!-- F5 -->
+    <details class="acc">
+      <summary><span class="tag new">Wk 5 · §4.5</span> Curve Sketching (Full Analysis) <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>Sketching is a checklist that turns a formula into a picture: gather domain, intercepts, asymptotes, then use $f'$ for slope behavior and $f''$ for bending.</p></div>
+        <div class="formal"><div class="lbl">📐 The checklist</div>
+          <p>1. Domain · 2. Intercepts · 3. Symmetry · 4. Asymptotes (H/V, via limits &amp; l'Hôpital) · 5. Increase/decrease ($f'$) · 6. Local max/min · 7. Concavity &amp; inflection ($f''$) · 8. Sketch.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example (sketch of the argument)</div>
+          <p>For $g(x)=\dfrac{\ln|x|}{x}$: HA $y=0$ (as $x\to\pm\infty$, l'Hôpital gives $0$); VA $x=0$. $g'=\dfrac{1-\ln x}{x^2}$ ⟹ critical at $x=e$ (local max), $x=-e$ (local min). $g''=\dfrac{-3+2\ln x}{x^3}$ ⟹ inflection at $x=e^{3/2}$.</p></div>
+      </div>
+    </details>
+
+    <!-- F6 -->
+    <details class="acc">
+      <summary><span class="tag new">Wk 5 · §4.9</span> Antiderivatives &amp; Indefinite Integrals <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>An antiderivative reverses differentiation: given the slope, recover the function. Because constants vanish when you differentiate, you always add $+C$. An initial condition pins down that $C$.</p></div>
+        <div class="formal"><div class="lbl">📐 Core antiderivatives</div>
+          <p>$\int x^n\,dx=\frac{x^{n+1}}{n+1}+C\;(n\ne-1)$; $\int\frac1x dx=\ln|x|+C$; $\int e^x dx=e^x+C$.</p>
+          <p>$\int\cos x\,dx=\sin x+C$; $\int\sin x\,dx=-\cos x+C$; $\int\sec^2x\,dx=\tan x+C$.</p>
+          <p>$\int\frac{1}{1+x^2}dx=\arctan x+C$; $\int\frac{1}{\sqrt{1-x^2}}dx=\arcsin x+C$.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Find $f$ with $f'(x)=6x^2+\cos x$ and $f(0)=2$.</p>
+          <p class="step">$f(x)=2x^3+\sin x+C$; $f(0)=C=2\Rightarrow f(x)=2x^3+\sin x+2$.</p></div>
+      </div>
+    </details>
+
+    <!-- F7 -->
+    <details class="acc">
+      <summary><span class="tag new">Wk 5 · §5.1–5.2</span> Area, Riemann Sums &amp; Definite Integrals <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>The definite integral is the signed area under a curve, built by slicing into thin rectangles and adding them up (a Riemann sum) as the slices get infinitely thin.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p>$\displaystyle\int_a^b f(x)\,dx=\lim_{n\to\infty}\sum_{i=1}^n f(x_i^*)\,\Delta x,\;\Delta x=\frac{b-a}{n}$.</p>
+          <p>Properties: linearity; $\int_a^a=0$; $\int_a^b=-\int_b^a$; $\int_a^b=\int_a^c+\int_c^b$; if $f\ge g$ then $\int f\ge\int g$.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>$\int_0^2 x\,dx$ as a limit: $=\lim_n\sum_{i=1}^n \frac{2i}{n}\cdot\frac2n=\lim_n\frac{4}{n^2}\cdot\frac{n(n+1)}2=\lim_n 2\cdot\frac{n+1}{n}=2$.</p></div>
+      </div>
+    </details>
+
+    <!-- F8 -->
+    <details class="acc">
+      <summary><span class="tag new">Wk 6 · §5.3–5.4</span> Fundamental Theorem of Calculus &amp; Net Change <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>The FTC is the bridge: differentiation and integration undo each other. Part 1: differentiating an integral-with-variable-limit gives back the integrand. Part 2: to evaluate a definite integral, just plug endpoints into any antiderivative.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p><b>FTC-1:</b> $\dfrac{d}{dx}\displaystyle\int_a^x f(t)\,dt=f(x)$. With a variable upper limit $u(x)$: $\dfrac{d}{dx}\int_a^{u(x)}f=f(u(x))\,u'(x)$ (chain rule).</p>
+          <p><b>FTC-2:</b> $\displaystyle\int_a^b f(x)\,dx=F(b)-F(a)$ where $F'=f$.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>If $y(x)=\displaystyle\int_0^{\arcsin x}\tan t\,dt$, find $y'(\tfrac12)$.</p>
+          <p class="step">$y'(x)=\tan(\arcsin x)\cdot\dfrac{1}{\sqrt{1-x^2}}$.</p>
+          <p class="step">At $x=\tfrac12$: $\arcsin\tfrac12=\tfrac\pi6$, $\tan\tfrac\pi6=\tfrac1{\sqrt3}$, $\sqrt{1-\tfrac14}=\tfrac{\sqrt3}2$. So $y'(\tfrac12)=\tfrac{1}{\sqrt3}\cdot\tfrac{2}{\sqrt3}=\tfrac23$.</p></div>
+      </div>
+    </details>
+
+    <!-- F9 -->
+    <details class="acc">
+      <summary><span class="tag new">Wk 6 · §5.5</span> The Substitution Rule <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>Substitution is the chain rule in reverse. Spot an inner function $u$ whose derivative is also (essentially) present, swap everything into $u$, integrate, swap back. For definite integrals, either change the limits to $u$-values or convert back at the end.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p>$\displaystyle\int f(g(x))\,g'(x)\,dx=\int f(u)\,du$ with $u=g(x)$, $du=g'(x)\,dx$.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>$\displaystyle\int \sqrt{1+x^2}\,\cdot 2x^5\,dx$.</p>
+          <p class="step">Let $u=1+x^2$, $du=2x\,dx$, and $x^4=(u-1)^2$. Then integral $=\int\sqrt u\,(u-1)^2\,du$.</p>
+          <p class="step">$=\int(u^{5/2}-2u^{3/2}+u^{1/2})du=\tfrac27u^{7/2}-\tfrac45u^{5/2}+\tfrac23u^{3/2}+C$, back-substitute $u=1+x^2$.</p></div>
+      </div>
+    </details>
+
+    <!-- F10 -->
+    <details class="acc">
+      <summary><span class="tag new">Wk 6 · §7.1</span> Integration by Parts <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>The product rule in reverse — for integrating a <em>product</em> where one factor gets simpler when differentiated (like $\ln x$ or a polynomial). Choose $u$ = the part that simplifies. Mnemonic <b>LIATE</b> (Log, Inverse-trig, Algebraic, Trig, Exponential) picks $u$.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p>$\displaystyle\int u\,dv=uv-\int v\,du.$</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>$\displaystyle\int_0^e x\ln x\,dx$ (improper at $0$).</p>
+          <p class="step">$u=\ln x,\;dv=x\,dx\Rightarrow du=\tfrac1x dx,\;v=\tfrac{x^2}2$. Antideriv $=\tfrac{x^2}2\ln x-\tfrac{x^2}4$.</p>
+          <p class="step">Evaluate to $e$; the $x\to0^+$ end needs $\lim x^2\ln x=0$ (l'Hôpital). Result $=\dfrac{e^2}{4}$.</p></div>
+      </div>
+    </details>
+
+    <!-- F11 -->
+    <details class="acc">
+      <summary><span class="tag new">Wk 6 · §7.4</span> Integration by Partial Fractions <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>A complicated rational function can be split into a sum of simple pieces (each $\frac{1}{\text{linear}}$ or $\frac{1}{\text{linear}^2}$), and each simple piece integrates to a $\ln$ or a power. First make sure the numerator's degree is lower than the denominator's.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p>Factor the denominator. For each factor set up unknowns: $\frac{A}{x-r}$, and for repeated $\frac{A}{x-r}+\frac{B}{(x-r)^2}$. Clear denominators, solve for constants, integrate termwise.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>$\displaystyle\int\frac{2x^2+3x-6}{x^3+2x^2}\,dx$.</p>
+          <p class="step">$x^3+2x^2=x^2(x+2)$. Set $\frac{2x^2+3x-6}{x^2(x+2)}=\frac Ax+\frac{B}{x^2}+\frac{C}{x+2}$.</p>
+          <p class="step">Solve: $A=3,B=-3,C=-1$. Integral $=3\ln|x|+\dfrac3x-\ln|x+2|+C$.</p></div>
+      </div>
+    </details>
+
+    <!-- F12 -->
+    <details class="acc">
+      <summary><span class="tag new">Wk 6 · §6.1</span> Areas Between Curves <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>The area between two curves is $\int(\text{top}-\text{bottom})$. Find where they cross to get the limits, and check which function is on top on each piece.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p>$\text{Area}=\displaystyle\int_a^b\big[f(x)-g(x)\big]\,dx$ where $f\ge g$ on $[a,b]$.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Area between $y=2x$ and $h(x)=2x-\cos x$ on $[-\tfrac\pi2,\tfrac\pi2]$.</p>
+          <p class="step">On this interval $\cos x>0$, so $2x$ is on top. Difference $=2x-(2x-\cos x)=\cos x$.</p>
+          <p class="step">$\int_{-\pi/2}^{\pi/2}\cos x\,dx=\sin x\big|_{-\pi/2}^{\pi/2}=1-(-1)=2$.</p></div>
+      </div>
+    </details>
+
+    <!-- F13 -->
+    <details class="acc">
+      <summary><span class="tag new">Wk 7 · §6.5</span> Average Value &amp; MVT for Integrals <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>The average value of a function over an interval is the height of a rectangle with the same area. The MVT for integrals says a continuous function actually attains its own average somewhere.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p>$f_{\text{avg}}=\dfrac{1}{b-a}\displaystyle\int_a^b f(x)\,dx$. MVT: $\exists c\in[a,b]$ with $f(c)=f_{\text{avg}}$.</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>Average value of $f(x)=\dfrac{1}{2+x^2}$ over $[-\sqrt2,\sqrt2]$.</p>
+          <p class="step">$f_{\text{avg}}=\dfrac{1}{2\sqrt2}\int_{-\sqrt2}^{\sqrt2}\dfrac{dx}{2+x^2}$. Use $\int\frac{dx}{a^2+x^2}=\frac1a\arctan\frac xa$ with $a=\sqrt2$.</p>
+          <p class="step">$=\dfrac{1}{2\sqrt2}\cdot\dfrac{1}{\sqrt2}\big[\arctan\tfrac{x}{\sqrt2}\big]_{-\sqrt2}^{\sqrt2}=\dfrac14\big[\tfrac\pi4-(-\tfrac\pi4)\big]=\dfrac{\pi}{8}$.</p></div>
+      </div>
+    </details>
+
+    <!-- F14 -->
+    <details class="acc">
+      <summary><span class="tag new">Wk 7 · §7.8</span> Improper Integrals &amp; the Comparison Theorem <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="intuition"><div class="lbl">💡 Intuition</div>
+          <p>An improper integral stretches to $\pm\infty$ or straddles a spot where the function blows up. Handle it with a limit: integrate to a finite cutoff, then let the cutoff run to the trouble spot. If the limit is finite it <b>converges</b>; otherwise it <b>diverges</b>.</p></div>
+        <div class="formal"><div class="lbl">📐 Formal</div>
+          <p><b>Type I:</b> $\displaystyle\int_a^\infty f=\lim_{t\to\infty}\int_a^t f$. <b>Type II</b> (discontinuity at $b$): $\int_a^b f=\lim_{t\to b^-}\int_a^t f$.</p>
+          <p><b>Comparison:</b> if $0\le f\le g$ and $\int g$ converges, so does $\int f$ (and if $\int f$ diverges, so does $\int g$).</p></div>
+        <div class="example"><div class="lbl">✍️ Worked example</div>
+          <p>$\displaystyle\int_{-\infty}^{0}\frac{x^2}{1+16x^6}\,dx$.</p>
+          <p class="step">Note $16x^6=(4x^3)^2$. Let $u=4x^3$, $du=12x^2dx$: integral $=\lim_{t\to-\infty}\int\frac{1}{12}\cdot\frac{du}{1+u^2}$.</p>
+          <p class="step">$=\lim_{t\to-\infty}\tfrac{1}{12}\arctan(4x^3)\big|_t^0=\tfrac{1}{12}\big[0-(-\tfrac\pi2)\big]=\dfrac{\pi}{24}$ (converges).</p></div>
+      </div>
+    </details>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== FINAL HIGH-PROB ===== -->
+  <section class="block" id="f-highprob">
+    <div class="sec-head"><div class="ico rose">🎯</div><h3>High-Probability Exam Topics</h3></div>
+    <p class="sec-sub">From the 2023, 2024 &amp; 2025-26 finals. The final <b>reuses</b> the midterm's proof types (ε–δ, induction, IVT, Squeeze) <em>and</em> adds integration-heavy multi-step problems.</p>
+    <div class="grid">
+      <div class="pcard p-vhigh"><span class="pr">🔴 Almost certain</span><h4>A multi-part integral question</h4>
+        <p>Typically 3 integrals: one <b>substitution</b>, one <b>by parts</b> (often improper), one <b>partial fractions</b>.</p>
+        <div class="seen">Seen: 2024 Q6 · 2025-26 Q13</div></div>
+      <div class="pcard p-vhigh"><span class="pr">🔴 Almost certain</span><h4>Full function analysis on $[a,b]$</h4>
+        <p>Critical points, increase/decrease, EVT justification, absolute extrema. Big point value.</p>
+        <div class="seen">Seen: 2024 Q1 · 2025-26 Q10 (12 pts)</div></div>
+      <div class="pcard p-vhigh"><span class="pr">🔴 Almost certain</span><h4>FTC with a variable limit</h4>
+        <p>Differentiate $\int_a^{u(x)}f\,dt$ via chain rule; or set $f'=0$ from an integral function.</p>
+        <div class="seen">Seen: 2024 Q8b · 2025-26 Q4</div></div>
+      <div class="pcard p-vhigh"><span class="pr">🔴 Almost certain</span><h4>l'Hôpital limits</h4>
+        <p>A $\frac00$/$\frac\infty\infty$ pair, plus a $1^\infty$ or $0^0$ needing the $\ln$-trick.</p>
+        <div class="seen">Seen: 2024 Q4 · 2025-26 Q3</div></div>
+      <div class="pcard p-high"><span class="pr">🟠 Very likely</span><h4>IVT + Rolle (exactly one root)</h4>
+        <p>Existence via IVT, uniqueness via Rolle/monotonicity. Often paired with an area.</p>
+        <div class="seen">Seen: 2025-26 Q11 (15 pts)</div></div>
+      <div class="pcard p-high"><span class="pr">🟠 Very likely</span><h4>Area between curves</h4>
+        <p>Find intersections, identify top curve, integrate the difference.</p>
+        <div class="seen">Seen: 2025-26 Q11c</div></div>
+      <div class="pcard p-high"><span class="pr">🟠 Very likely</span><h4>Improper integral</h4>
+        <p>Limit setup + arctan or comparison; also appears inside a volume of revolution.</p>
+        <div class="seen">Seen: 2024 Q6b,Q7</div></div>
+      <div class="pcard p-high"><span class="pr">🟠 Very likely</span><h4>Average value of a function</h4>
+        <p>$\frac{1}{b-a}\int f$; usually an arctan-type integrand.</p>
+        <div class="seen">Seen: 2025-26 Q5</div></div>
+      <div class="pcard p-high"><span class="pr">🟠 Very likely</span><h4>Induction / Squeeze / ε–δ (reused)</h4>
+        <p>The midterm proof types return as Section B open questions.</p>
+        <div class="seen">Seen: 2025-26 Q6,Q7,Q8</div></div>
+      <div class="pcard p-med"><span class="pr">🔵 Likely</span><h4>MVT application (inequality)</h4>
+        <p>Use MVT to prove e.g. $4x>\sin(4x)$ on an interval.</p>
+        <div class="seen">Seen: 2024 Q8a</div></div>
+      <div class="pcard p-med"><span class="pr">🔵 Likely</span><h4>Differentiability of a piecewise function</h4>
+        <p>Derivative from definition + one-sided derivatives match.</p>
+        <div class="seen">Seen: 2025-26 Q9</div></div>
+      <div class="pcard p-med"><span class="pr">🔵 Likely</span><h4>State a theorem / True-False (block)</h4>
+        <p>State the FTC; or a T/F like "$f'(c)=0\Rightarrow$ extremum?" (false: $x^3$).</p>
+        <div class="seen">Seen: 2025-26 Q1,Q12</div></div>
+      <div class="pcard p-med"><span class="pr">🔵 Likely</span><h4>$\int|{\cdot}|\,dx$ — split by sign</h4>
+        <p>e.g. $\int_{-1}^{3}|x^3-4x|\,dx$: split at roots, sign each piece.</p>
+        <div class="seen">Seen: 2024 Q6a</div></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== FINAL PRACTICE ===== -->
+  <section class="block" id="f-practice">
+    <div class="sec-head"><div class="ico teal">✏️</div><h3>Targeted Practice</h3></div>
+    <p class="sec-sub">Comprehensive set at final-exam difficulty. Attempt, then reveal the worked solution.</p>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem F1 · Three integrals</div>
+        <p>Evaluate: (a) $\displaystyle\int \sqrt{1+x^2}\,2x^5\,dx$ &nbsp; (b) $\displaystyle\int_0^e x\ln x\,dx$ &nbsp; (c) $\displaystyle\int\frac{2x^2+3x-6}{x^3+2x^2}\,dx$.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step"><b>(a) Substitution.</b> $u=1+x^2,\,du=2x\,dx,\,x^4=(u-1)^2$: $\int\sqrt u(u-1)^2du=\tfrac27u^{7/2}-\tfrac45u^{5/2}+\tfrac23u^{3/2}+C$ with $u=1+x^2$.</p>
+        <p class="step"><b>(b) By parts</b> ($u=\ln x,\,dv=x\,dx$): $\big[\tfrac{x^2}2\ln x-\tfrac{x^2}4\big]_0^e$. At $0$: $\lim_{t\to0^+}t^2\ln t=0$. Result $=\tfrac{e^2}2-\tfrac{e^2}4=\dfrac{e^2}{4}$.</p>
+        <p class="step"><b>(c) Partial fractions.</b> $\frac{2x^2+3x-6}{x^2(x+2)}=\frac3x-\frac{3}{x^2}-\frac1{x+2}\Rightarrow 3\ln|x|+\dfrac3x-\ln|x+2|+C$.</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem F2 · Function analysis</div>
+        <p>For $g(x)=x^{2/3}(2x-5)$ on $[-1,3]$: (a) critical points, (b) increasing/decreasing intervals, (c) why extremes exist, (d) the absolute max and min.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step"><b>(a)</b> $g'(x)=\dfrac{10(x-1)}{3x^{1/3}}$; critical points $x=1$ ($g'=0$) and $x=0$ ($g'$ DNE), both in $[-1,3]$.</p>
+        <p class="step"><b>(b)</b> Sign of $g'$: increasing on $[-1,0)$ and $(1,3]$; decreasing on $(0,1)$.</p>
+        <p class="step"><b>(c)</b> $g$ is continuous on the closed interval $[-1,3]$, so by the Extreme Value Theorem it attains an absolute max and min.</p>
+        <p class="step"><b>(d)</b> $g(-1)=-7,\;g(0)=0,\;g(1)=-3,\;g(3)=\sqrt[3]9$. Max $=\sqrt[3]9$ at $x=3$; min $=-7$ at $x=-1$.</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem F3 · IVT + Rolle + area</div>
+        <p>Let $h(x)=2x-\cos x$. (a) Show $h=0$ has a solution (IVT). (b) Show it's unique (Rolle). (c) Find the area between $h$ and $y=2x$ on $[-\tfrac\pi2,\tfrac\pi2]$.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step"><b>(a)</b> $h(0)=-1<0$, $h(\tfrac\pi2)=\pi>0$, continuous ⟹ IVT gives $c\in(0,\tfrac\pi2)$ with $h(c)=0$.</p>
+        <p class="step"><b>(b)</b> Two roots would give (Rolle) some $c$ with $h'(c)=0$; but $h'(x)=2+\sin x>0$ always — contradiction. Unique.</p>
+        <p class="step"><b>(c)</b> Top is $2x$ (since $\cos x>0$). Area $=\int_{-\pi/2}^{\pi/2}\cos x\,dx=2$.</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem F4 · Two l'Hôpital limits</div>
+        <p>(a) $\displaystyle\lim_{x\to0}\frac{\tan x}{\tan 3x}$ &nbsp; (b) $\displaystyle\lim_{x\to1^+}(\ln x)^{\,x-1}$.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step"><b>(a)</b> $\frac00$. L'Hôpital: $\dfrac{\sec^2x}{3\sec^2 3x}\to\dfrac{1}{3}\cdot\dfrac{\cos^2 0}{\cos^2 0}=\dfrac13$.</p>
+        <p class="step"><b>(b)</b> Form $0^0$. Let $y=(\ln x)^{x-1}$, $\ln y=(x-1)\ln(\ln x)$. Rewrite as $\dfrac{\ln(\ln x)}{1/(x-1)}$ ($\frac{-\infty}{\infty}$).</p>
+        <p class="step">L'Hôpital gives $\dfrac{1/(x\ln x)}{-1/(x-1)^2}=\dfrac{-(x-1)^2}{x\ln x}$; apply again ⟹ $\to0$. So $\lim y=e^0=1$.</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem F5 · FTC with variable limit</div>
+        <p>If $y(x)=\displaystyle\int_0^{\arcsin x}\tan t\,dt$, find $y'\!\left(\tfrac12\right)$.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step">FTC-1 + chain: $y'(x)=\tan(\arcsin x)\cdot\dfrac{1}{\sqrt{1-x^2}}$.</p>
+        <p class="step">At $x=\tfrac12$: $\arcsin\tfrac12=\tfrac\pi6$, $\tan\tfrac\pi6=\tfrac1{\sqrt3}$, $\sqrt{1-\tfrac14}=\tfrac{\sqrt3}2$.</p>
+        <p class="step">$y'(\tfrac12)=\dfrac{1}{\sqrt3}\cdot\dfrac{2}{\sqrt3}=\dfrac23$.</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem F6 · Improper integral</div>
+        <p>Evaluate $\displaystyle\int_{-\infty}^{0}\frac{x^2}{1+16x^6}\,dx$ (or show it diverges).</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step">$16x^6=(4x^3)^2$. Let $u=4x^3,\,du=12x^2\,dx$.</p>
+        <p class="step">$=\lim_{t\to-\infty}\tfrac{1}{12}\big[\arctan(4x^3)\big]_t^0=\tfrac{1}{12}\Big(0-(-\tfrac\pi2)\Big)=\dfrac{\pi}{24}$. Converges.</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem F7 · Absolute-value integral</div>
+        <p>Evaluate $\displaystyle\int_{-1}^{3}\big|x^3-4x\big|\,dx$.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step">$x^3-4x=x(x-2)(x+2)$; sign on $[-1,3]$: $\ge0$ on $[-1,0]$ and $[2,3]$, $\le0$ on $[0,2]$.</p>
+        <p class="step">$\int_{-1}^0(x^3-4x)+\int_0^2-(x^3-4x)+\int_2^3(x^3-4x)$ with antiderivative $\tfrac{x^4}4-2x^2$.</p>
+        <p class="step">$=\big[0-(-\tfrac74)\big]+\big[4-0\big]+\big[\tfrac94-(-4)\big]=\tfrac74+4+\tfrac{25}{4}=12$.</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem F8 · Closed-interval method + integrate</div>
+        <p>For $f(x)=\dfrac{8x}{x^2-2x+5}$ on $[-3,1]$: find the absolute max/min, then compute $\displaystyle\int\frac{8x}{x^2-2x+5}\,dx$.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step"><b>Extrema:</b> $f'(x)=\dfrac{-8x^2+40}{(x^2-2x+5)^2}=0\Rightarrow x^2=5\Rightarrow x=-\sqrt5$ (only $-\sqrt5\in[-3,1]$). Compare $f(-3)=-\tfrac65,\;f(-\sqrt5)=\tfrac{-4\sqrt5}{5+\sqrt5},\;f(1)=2$. Max $=2$ at $x=1$; min at $x=-\sqrt5$.</p>
+        <p class="step"><b>Integral:</b> write $8x=4(2x-2)+8$. Then $\int\frac{4(2x-2)}{x^2-2x+5}dx=4\ln(x^2-2x+5)$.</p>
+        <p class="step">For the rest, complete the square $x^2-2x+5=(x-1)^2+4$: $\int\frac{8}{(x-1)^2+4}dx=4\arctan\!\frac{x-1}{2}$.</p>
+        <p class="step">Total: $4\ln(x^2-2x+5)+4\arctan\!\dfrac{x-1}{2}+C$.</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem F9 · $1^\infty$ limit</div>
+        <p>Evaluate $\displaystyle\lim_{x\to\infty}\left(1+\frac{1}{2x}\right)^{x}$.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step">$\ln y=\dfrac{\ln(1+\frac{1}{2x})}{1/x}$, form $\tfrac00$.</p>
+        <p class="step">L'Hôpital ⟹ $\dfrac{1}{1+1/(2x)}\cdot\dfrac12\to\dfrac12$. So limit $=e^{1/2}=\sqrt e$.</p>
+      </div></details>
+    </div>
+
+    <div class="prob">
+      <div class="q"><div class="meta">Problem F10 · Squeeze (open question)</div>
+        <p>Use the Squeeze Theorem to prove $\displaystyle\lim_{x\to\infty}e^{-x^2}\cos\!\left(\frac{1}{\sin x+2}\right)=0$.</p></div>
+      <details class="sol"><summary>Show step-by-step solution</summary><div class="sbody">
+        <p class="step">$-1\le\cos(\cdots)\le1$. Since $e^{-x^2}>0$, multiply: $-e^{-x^2}\le e^{-x^2}\cos(\cdots)\le e^{-x^2}$.</p>
+        <p class="step">$\lim_{x\to\infty}e^{-x^2}=0=\lim_{x\to\infty}(-e^{-x^2})$. By Squeeze, the middle $\to0$. ∎</p>
+      </div></details>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== FINAL MASTER CHEAT SHEET ===== -->
+  <section class="block" id="f-cheat">
+    <div class="sec-head"><div class="ico gold">📌</div><h3>"Must-Remember" Master List</h3></div>
+    <p class="sec-sub">The complete reference — midterm essentials plus all integration. (Derivative &amp; limit tables live in the Midterm Hub cheat sheet.)</p>
+    <div class="cheat">
+      <div class="card"><h4><span class="d"></span>Basic antiderivatives</h4><ul>
+        <li class="kmath">$\int x^n dx=\frac{x^{n+1}}{n+1}+C\ (n\ne-1)$</li>
+        <li class="kmath">$\int\frac1x dx=\ln|x|+C$</li>
+        <li class="kmath">$\int e^x dx=e^x+C$</li>
+        <li class="kmath">$\int\cos x\,dx=\sin x+C$</li>
+        <li class="kmath">$\int\sin x\,dx=-\cos x+C$</li>
+        <li class="kmath">$\int\sec^2x\,dx=\tan x+C$</li>
+      </ul></div>
+      <div class="card"><h4><span class="d"></span>Antiderivatives → inverse trig</h4><ul>
+        <li class="kmath">$\int\frac{dx}{1+x^2}=\arctan x+C$</li>
+        <li class="kmath">$\int\frac{dx}{a^2+x^2}=\frac1a\arctan\frac xa+C$</li>
+        <li class="kmath">$\int\frac{dx}{\sqrt{1-x^2}}=\arcsin x+C$</li>
+      </ul></div>
+      <div class="card"><h4><span class="d"></span>Integration techniques</h4><ul>
+        <li><b>Substitution:</b> $\int f(g)g'\,dx=\int f(u)\,du$</li>
+        <li class="kmath"><b>By parts:</b> $\int u\,dv=uv-\int v\,du$ (LIATE)</li>
+        <li><b>Partial fractions:</b> degree(num) &lt; degree(den), factor, split</li>
+        <li><b>Complete the square</b> for $\to\arctan$</li>
+        <li><b>$\int|f|$:</b> split at zeros, sign each piece</li>
+      </ul></div>
+      <div class="card"><h4><span class="d"></span>Fundamental Theorem</h4><ul>
+        <li class="kmath">$\frac{d}{dx}\int_a^x f(t)dt=f(x)$</li>
+        <li class="kmath">$\frac{d}{dx}\int_a^{u(x)}\!f\,dt=f(u)u'$</li>
+        <li class="kmath">$\int_a^b f\,dx=F(b)-F(a)$</li>
+      </ul></div>
+      <div class="card"><h4><span class="d"></span>Applications of integrals</h4><ul>
+        <li class="kmath">Area: $\int_a^b(\text{top}-\text{bottom})\,dx$</li>
+        <li class="kmath">Average: $f_{\text{avg}}=\frac{1}{b-a}\int_a^b f$</li>
+        <li class="kmath">Volume (rotation): $V=\int\pi[f(x)]^2dx$</li>
+        <li class="kmath">Net change: $\int_a^b F'(x)dx=F(b)-F(a)$</li>
+      </ul></div>
+      <div class="card"><h4><span class="d"></span>Improper integrals</h4><ul>
+        <li class="kmath">Type I: $\int_a^\infty f=\lim_{t\to\infty}\int_a^t f$</li>
+        <li class="kmath">Type II: limit into the discontinuity</li>
+        <li>Finite limit ⟹ converges, else diverges</li>
+        <li><b>Comparison:</b> $0\le f\le g$, $\int g$ conv. ⟹ $\int f$ conv.</li>
+      </ul></div>
+      <div class="card"><h4><span class="d"></span>Applications of derivatives</h4><ul>
+        <li><b>Closed-interval method:</b> check critical pts + endpoints</li>
+        <li>$f'>0$ ↑, $f'<0$ ↓; $f''>0$ concave up</li>
+        <li>1st-deriv test: sign change of $f'$</li>
+        <li>2nd-deriv test: $f''(c)>0$ ⟹ min</li>
+        <li>Inflection: $f''$ changes sign</li>
+      </ul></div>
+      <div class="card"><h4><span class="d"></span>Theorems (state precisely)</h4><ul>
+        <li><b>EVT:</b> cont. on $[a,b]$ ⟹ abs max &amp; min</li>
+        <li><b>Fermat:</b> local extremum ⟹ critical point</li>
+        <li><b>Rolle:</b> $f(a)=f(b)$ ⟹ $\exists c,\,f'(c)=0$</li>
+        <li><b>MVT:</b> $f'(c)=\frac{f(b)-f(a)}{b-a}$</li>
+        <li><b>l'Hôpital:</b> $\frac00,\frac\infty\infty\Rightarrow\lim\frac{f'}{g'}$</li>
+      </ul></div>
+      <div class="card"><h4><span class="d"></span>Indeterminate forms</h4><ul>
+        <li class="kmath">Direct L'Hôpital: $\frac00,\ \frac{\infty}{\infty}$</li>
+        <li class="kmath">$0\cdot\infty$: rewrite as a quotient</li>
+        <li class="kmath">$\infty-\infty$: combine to one fraction</li>
+        <li class="kmath">$1^\infty,0^0,\infty^0$: take $\ln$, then exponentiate</li>
+      </ul></div>
+      <div class="card"><h4><span class="d"></span>Proof types (Section B)</h4><ul>
+        <li><b>ε–δ / ε–N:</b> "Let $\varepsilon>0$…", bound, choose $\delta$/$N$</li>
+        <li><b>Induction:</b> base → assume $S_k$ → prove $S_{k+1}$</li>
+        <li><b>IVT:</b> continuous + sign change ⟹ root</li>
+        <li><b>Uniqueness:</b> Rolle / strictly monotone</li>
+      </ul></div>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p><b>Calculus 1 Study Hub</b> — built from your Mathematics 1 course materials (weekly schedule, lecture notes, tutorials, and past midterm &amp; final exams 2023–2026).</p>
+    <p>Study flow: read the concept → attempt the practice problem → reveal the solution → drill the cheat sheet. Exam-topic priorities are derived from patterns that recurred across multiple past papers. Always verify against your official course materials.</p>
+    <p style="margin-top:10px">
+      <span class="pill">Midterm = Weeks 1–3</span>
+      <span class="pill">Final = comprehensive</span>
+      <span class="pill">MathJax rendering</span>
+      <span class="pill">Self-test accordions</span>
+    </p>
+  </div>
+</footer>
+
+<script>
+  function showHub(which){
+    document.getElementById('hub-mid').classList.toggle('active', which==='mid');
+    document.getElementById('hub-fin').classList.toggle('active', which==='fin');
+    document.getElementById('tab-mid').classList.toggle('active', which==='mid');
+    document.getElementById('tab-fin').classList.toggle('active', which==='fin');
+    window.scrollTo({top:0,behavior:'smooth'});
+    try{ localStorage.setItem('calc-hub', which);}catch(e){}
+  }
+  // Restore last hub
+  try{
+    var saved = localStorage.getItem('calc-hub');
+    if(saved==='fin') showHub('fin');
+  }catch(e){}
+  // Smooth-scroll sub-nav with sticky offset
+  document.querySelectorAll('.subnav a').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id=this.getAttribute('href');
+      var el=document.querySelector(id);
+      if(el){ e.preventDefault(); var y=el.getBoundingClientRect().top+window.pageYOffset-110;
+        window.scrollTo({top:y,behavior:'smooth'}); }
+    });
+  });
+</script>
+</body>
+</html>
